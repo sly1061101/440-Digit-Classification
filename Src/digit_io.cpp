@@ -56,19 +56,21 @@ bool io::digit_io::get_data(unsigned nth, char image[28][28], char *label){
     
     char dummy[999];
     
-    while(current_num < nth){
-        if(fread(dummy, sizeof(char), 29*28, pf_image) != 29*28){
-            fclose(pf_image);
-            fclose(pf_label);
-            return false;
-        }
-        if(fread(dummy, sizeof(char), 2, pf_label) != 2 ){
-            fclose(pf_image);
-            fclose(pf_label);
-            return false;
-        }
-        current_num++;
-    }
+//    while(current_num < nth){
+//        if(fread(dummy, sizeof(char), 29*28, pf_image) != 29*28){
+//            fclose(pf_image);
+//            fclose(pf_label);
+//            return false;
+//        }
+//        if(fread(dummy, sizeof(char), 2, pf_label) != 2 ){
+//            fclose(pf_image);
+//            fclose(pf_label);
+//            return false;
+//        }
+//        current_num++;
+//    }
+    fseek(pf_label, 2*sizeof(char)*nth, 0);
+    fseek(pf_image, 29*28*sizeof(char)*nth, 0);
     
     //read label
     if( fread(label, sizeof(char), 1, pf_label) != 1){
